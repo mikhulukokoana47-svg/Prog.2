@@ -1,0 +1,59 @@
+
+public class Product implements IProduct {
+
+    String[] products = {
+        "Single Mattress", "Double Mattress", "Queen Mattress"
+    };
+
+    int[][] sales = {
+        {20, 15, 25},
+        {30, 25, 35},
+        {40, 30, 45}
+    };
+
+    public int GetTotalProductsSold() {
+        int total = 0;
+
+        for (int[] row : sales)
+            for (int value : row)
+                total += value;
+
+        return total;
+    }
+
+    public double GetAverageProductSold() {
+        return (double) GetTotalProductsSold() / 3;
+    }
+
+    public String GetMostPopularProduct() {
+        int max = 0, popular = 0;
+
+        for (int i = 0; i < sales.length; i++) {
+            int total = 0;
+
+            for (int value : sales[i])
+                total += value;
+
+            if (total > max) {
+                max = total;
+                popular = i;
+            }
+        }
+
+        return products[popular];
+    }
+
+    public static void main(String[] args) {
+        Product p = new Product();
+
+        System.out.println("Total Products Sold: " + p.GetTotalProductsSold());
+        System.out.println("Average Products Sold: " + p.GetAverageProductSold());
+        System.out.println("Most Popular Product: " + p.GetMostPopularProduct());
+    }
+}
+
+interface IProduct {
+    int GetTotalProductsSold();
+    double GetAverageProductSold();
+    String GetMostPopularProduct();
+}
